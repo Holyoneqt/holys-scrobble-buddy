@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,7 +19,6 @@ import { LoginComponent } from './routes/login/login.component';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        HttpClientModule,
 
         AppMaterialModule,
         AppRoutingModule,
