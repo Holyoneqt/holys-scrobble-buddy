@@ -3,6 +3,25 @@
         <mat-nav-list>
             <a mat-list-item (click)="sidenav.toggle()" routerLink="home" routerLinkActive="active">Home</a>
         </mat-nav-list>
+        <mat-divider></mat-divider>
+        <mat-card class="user-profile-card">
+            <mat-card-header *ngIf="userProfile$ | async as userProfile; else userProfileNotLoggedIn">
+                <img mat-card-avatar [src]="userProfile.images[0].url" alt="profile pic" />
+                <mat-card-title>{{ userProfile.display_name }}</mat-card-title>
+                <mat-card-subtitle>
+                    <a style="font-size: 12px" href="{{ userProfile.external_urls.spotify }}">View on Spotify</a>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <ng-template #userProfileNotLoggedIn>
+                <mat-card-header>
+                    <mat-card-title>Not Logged In</mat-card-title>
+                </mat-card-header>
+            </ng-template>
+        </mat-card>
+        <div class="credits">
+            Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"
+                title="Flaticon">www.flaticon.com</a>
+        </div>
     </mat-sidenav>
 
     <mat-sidenav-content>

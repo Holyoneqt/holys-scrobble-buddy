@@ -1,0 +1,12 @@
+.user-profile-card {
+    padding: 8px;
+    margin: 8px;
+    height: 45px;
+}
+
+.credits {
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+    margin: 8px;
+}
