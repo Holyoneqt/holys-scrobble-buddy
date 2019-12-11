@@ -1,0 +1,6 @@
+<mat-form-field class="full-width">
+    <mat-label>Playlist Name</mat-label>
+    <input #nameInput matInput placeholder="Enter a name..." />
+</mat-form-field>
+<button mat-flat-button class="half-width" color="warn" (click)="close()">Cancel</button>
+<button mat-flat-button class="half-width" color="primary" (click)="close(nameInput.value)">Create Playlist</button>

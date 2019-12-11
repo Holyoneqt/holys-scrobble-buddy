@@ -11,6 +11,9 @@ import { AppMaterialModule } from './modules/app-material.module';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { HomeComponent } from './routes/home/home.component';
 import { LoginComponent } from './routes/login/login.component';
+import { PlaylistsDetailComponent } from './routes/playlists-detail/playlists-detail.component';
+import { CreatePlaylistDialogComponent } from './routes/playlists/components/create-playlist/create-playlist.component';
+import { PlaylistsComponent } from './routes/playlists/playlists.component';
 import { metaReducers, reducers } from './store/index.store';
 
 @NgModule({
@@ -18,6 +21,10 @@ import { metaReducers, reducers } from './store/index.store';
         AppComponent,
         HomeComponent,
         LoginComponent,
+        PlaylistsComponent,
+        PlaylistsDetailComponent,
+        
+        CreatePlaylistDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -36,6 +43,9 @@ import { metaReducers, reducers } from './store/index.store';
                 strictActionImmutability: true
             }
         }),
+    ],
+    entryComponents: [
+        CreatePlaylistDialogComponent,
     ],
     providers: [
     ],

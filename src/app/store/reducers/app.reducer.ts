@@ -10,6 +10,13 @@ export function appReducers(state: AppState = initialAppState, action: AppAction
             };
         }
 
+        case AppActionTypes.SetUserPlaylists: {
+            return {
+                ...state,
+                userPlaylists: action.payload,
+            };
+        }
+
         default: {
             return state;
         }

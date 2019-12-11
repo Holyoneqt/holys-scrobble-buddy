@@ -1,0 +1,18 @@
+<mat-grid-list cols="2" rowHeight="210px">
+    <mat-grid-tile *ngFor="let playlist of (playlists$ | async)">
+        <mat-card class="playlist-card mat-elevation-z4" [routerLink]="['/playlists', playlist.id]">
+            <img *ngIf="playlist.images[0]; else noPlaylistImage;" mat-card-image class="playlist-card--image" [src]="playlist.images[0].url">
+            <ng-template #noPlaylistImage>
+                <img mat-card-image class="playlist-card--image-not-available" src="assets/icons/no_image.svg">
+            </ng-template>
+        </mat-card>
+        <p class="playlist-name">{{playlist.name}}</p>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+        <mat-card class="playlist-card mat-elevation-z4">
+            <img mat-card-image class="playlist-card--image-create" src="assets/icons/add.svg" (click)="openCreatePlaylistDialog()">
+        </mat-card>
+        <p class="playlist-name">Create new Playlist</p>
+    </mat-grid-tile>
+</mat-grid-list>
