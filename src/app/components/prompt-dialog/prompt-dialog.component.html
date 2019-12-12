@@ -1,0 +1,6 @@
+<mat-form-field class="full-width">
+    <mat-label>{{ data.label }}</mat-label>
+    <input #input matInput [placeholder]="data.placeholder" />
+</mat-form-field>
+<button mat-flat-button class="half-width" color="warn" (click)="close()">Cancel</button>
+<button mat-flat-button class="half-width" color="primary" (click)="close(input.value)">{{ data.submitText }}</button>

@@ -1,1 +1,3 @@
-home
+<ng-container *ngFor="let artist of (weeklyArtistsChart | async)">
+    <p>{{ artist.name }} ({{ artist.playcount }})</p>
+</ng-container>

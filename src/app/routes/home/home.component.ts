@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { SpotifyService } from 'src/app/services/spotify.service';
-import { State } from 'src/app/store/index.store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Artist } from 'src/app/models/lastfm.models';
+import { DialogService } from 'src/app/services/dialog.service';
+import { LastfmService } from 'src/app/services/lastfm.service';
+import { LocalStorageKey, LocalStorageService } from 'src/app/services/localstorage.service';
 
 @Component({
     selector: 'app-home',
@@ -10,10 +13,29 @@ import { State } from 'src/app/store/index.store';
 })
 export class HomeComponent implements OnInit {
 
+    public weeklyArtistsChart: Observable<Artist[]>;
 
-    constructor(private store: Store<State>, private spotify: SpotifyService) { }
+    constructor(private localStorage: LocalStorageService, private dialogService: DialogService, private lastfm: LastfmService) { }
 
-    public async ngOnInit(): Promise<void> {
+    public ngOnInit(): void {
+        if (!this.localStorage.get(LocalStorageKey.LastfmName)) {
+            this.dialogService.openPromptDialog({
+                label: 'last.fm Username',
+                placeholder: 'Enter your last.fm name...',
+                submitText: 'Save',
+            }).subscribe(lastfmName => {
+                this.localStorage.set(LocalStorageKey.LastfmName, lastfmName);
+                this.weeklyArtistsChart = this.lastfm.getWeeklyArtistChart().pipe(
+                    map(response => response.weeklyartistchart.artist.slice(0, 5)),
+                );
+            });
+        } else {
+            this.weeklyArtistsChart = this.lastfm.getWeeklyArtistChart().pipe(
+                map(response => response.weeklyartistchart.artist.slice(0, 5)),
+            );
+        }
+
+        // this.lastfm.getTopTracks(new Date(), new Date()).subscribe(r => console.log(r));
     }
 
 }

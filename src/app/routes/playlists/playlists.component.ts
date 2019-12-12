@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
+import { DialogService } from 'src/app/services/dialog.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 import { SetUserPlaylists } from 'src/app/store/actions/app.actions';
 import { State } from 'src/app/store/index.store';
 import { getUserPlaylists, getUserProfile } from 'src/app/store/states/app.state';
-
-import { CreatePlaylistDialogComponent } from './components/create-playlist/create-playlist.component';
 
 @Component({
     selector: 'app-playlists',
@@ -19,7 +17,7 @@ export class PlaylistsComponent implements OnInit {
 
     public playlists$: Observable<PlaylistObjectSimplified[]>;
 
-    constructor(private store: Store<State>, private spotify: SpotifyService, private dialog: MatDialog) { }
+    constructor(private store: Store<State>, private spotify: SpotifyService, private dialogService: DialogService) { }
 
     public async ngOnInit(): Promise<void> {
         this.fetchPlaylists();
@@ -36,14 +34,17 @@ export class PlaylistsComponent implements OnInit {
     }
 
     public openCreatePlaylistDialog(): void {
-        this.dialog.open(CreatePlaylistDialogComponent, {
-            disableClose: true,
-        }).afterClosed().subscribe(newPlaylistName => {
-            if (newPlaylistName) {
-                this.spotify.createPlaylist(newPlaylistName).subscribe(() => {
-                    this.fetchPlaylists();
-                });
-            }
+        this.dialogService.openPromptDialog({
+            label: 'Playlist Name',
+            placeholder: 'Enter a name...',
+            submitText: 'Create Playlist',
+        }).subscribe(newPlaylistName => {
+            console.log(newPlaylistName);
+            // if (newPlaylistName) {
+            //     this.spotify.createPlaylist(newPlaylistName).subscribe(() => {
+            //         this.fetchPlaylists();
+            //     });
+            // }
         });
     }
 

@@ -7,12 +7,12 @@ import { StoreModule } from '@ngrx/store';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { PromptDialogComponent } from './components/prompt-dialog/prompt-dialog.component';
 import { AppMaterialModule } from './modules/app-material.module';
 import { AppRoutingModule } from './modules/app-routing.module';
 import { HomeComponent } from './routes/home/home.component';
 import { LoginComponent } from './routes/login/login.component';
 import { PlaylistsDetailComponent } from './routes/playlists-detail/playlists-detail.component';
-import { CreatePlaylistDialogComponent } from './routes/playlists/components/create-playlist/create-playlist.component';
 import { PlaylistsComponent } from './routes/playlists/playlists.component';
 import { metaReducers, reducers } from './store/index.store';
 
@@ -24,7 +24,7 @@ import { metaReducers, reducers } from './store/index.store';
         PlaylistsComponent,
         PlaylistsDetailComponent,
         
-        CreatePlaylistDialogComponent,
+        PromptDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -45,7 +45,7 @@ import { metaReducers, reducers } from './store/index.store';
         }),
     ],
     entryComponents: [
-        CreatePlaylistDialogComponent,
+        PromptDialogComponent,
     ],
     providers: [
     ],

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export enum LocalStorageKey {
     AccessToken = 'hsb-acces_token',
     TokenExpiresIn = 'hsb-expires_in',
+    LastfmName = 'hsb-lastfm_name',
 }
 
 @Injectable({ providedIn: 'root' })
