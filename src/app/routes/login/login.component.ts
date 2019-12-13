@@ -9,8 +9,7 @@ import { State } from 'src/app/store/index.store';
 @Component({
     selector: 'app-login',
     template: `
-        <mat-spinner style="margin: 80px auto;" mode="indeterminate"></mat-spinner>
-        <h1 style="text-align: center; font-family: 'Amatic SC'">Logging you in...</h1>
+        <app-loading text="Logging you in..."></app-loading>
     `,
 })
 export class LoginComponent implements OnInit {

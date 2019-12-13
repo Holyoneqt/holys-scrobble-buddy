@@ -1,0 +1,22 @@
+<mat-form-field class="half-width">
+    <input matInput [matDatepicker]="pickerFrom" placeholder="From" [formControl]="dateFrom">
+    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFrom></mat-datepicker>
+</mat-form-field>
+<mat-form-field class="half-width">
+    <input matInput [matDatepicker]="pickerTo" placeholder="To" [formControl]="dateTo">
+    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <mat-datepicker #pickerTo></mat-datepicker>
+</mat-form-field>
+<button matInput mat-flat-button color="accent" class="full-width" style="margin: 12px 0;" (click)="search()">Go</button>
+
+<app-loading *ngIf="loading$ | async" text="Loading your top tracks..."></app-loading>
+<mat-selection-list #shoes>
+    <mat-list-option *ngFor="let track of tracks$ | async">
+        <img mat-list-icon class="album-cover" [src]="track.img" />
+        <h4 mat-line>{{ track.name }}</h4>
+        <p mat-line> {{ track.artist }} </p>
+        <p mat-line> {{ track.scrobbles }} scrobbles </p>
+        <mat-divider></mat-divider>
+    </mat-list-option>
+</mat-selection-list>

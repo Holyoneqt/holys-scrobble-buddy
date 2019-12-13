@@ -19,7 +19,6 @@ export class PlaylistsDetailComponent implements OnInit {
         this.playlist$ = this.route.paramMap.pipe(
             switchMap(paramMap => this.spotify.getPlaylist(paramMap.get('id')))
         );
-        this.playlist$.subscribe(p => console.log(p));
     }
 
 }

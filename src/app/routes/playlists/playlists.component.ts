@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { DialogService } from 'src/app/services/dialog.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 import { SetUserPlaylists } from 'src/app/store/actions/app.actions';
@@ -27,7 +27,6 @@ export class PlaylistsComponent implements OnInit {
             this.store.select(getUserProfile),
             this.store.select(getUserPlaylists),
         ).pipe(
-            tap(([userProfile, userPlaylists]) => console.log(userProfile, userPlaylists)),
             filter(([userProfile, userPlaylists]) => userPlaylists !== undefined && userProfile !== undefined),
             map(([userProfile, userPlaylists]) => userPlaylists.filter(playlist => playlist.owner.id === userProfile.id)),
         );
@@ -39,12 +38,11 @@ export class PlaylistsComponent implements OnInit {
             placeholder: 'Enter a name...',
             submitText: 'Create Playlist',
         }).subscribe(newPlaylistName => {
-            console.log(newPlaylistName);
-            // if (newPlaylistName) {
-            //     this.spotify.createPlaylist(newPlaylistName).subscribe(() => {
-            //         this.fetchPlaylists();
-            //     });
-            // }
+            if (newPlaylistName) {
+                this.spotify.createPlaylist(newPlaylistName).subscribe(() => {
+                    this.fetchPlaylists();
+                });
+            }
         });
     }
 

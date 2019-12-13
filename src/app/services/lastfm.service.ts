@@ -27,7 +27,7 @@ export class LastfmService {
     private scrap(from: Date, to: Date): Observable<ScrappedTrack[]> {
         return this.http.get(`
             https://cors-anywhere.herokuapp.com/` + 
-            `https://www.last.fm/user/${this.lastfmUserName()}/library/tracks?from=2019-06-20&to=2019-09-20
+            `https://www.last.fm/user/${this.lastfmUserName()}/library/tracks?from=${this.formatDate(from)}&to=${this.formatDate(to)}
         `, {responseType: 'text'}).pipe(
             map(response => this.scrapper.scrap(response))
         );
@@ -45,6 +45,10 @@ export class LastfmService {
 
     private lastfmUserName(): string {
         return this.localStorage.get(LocalStorageKey.LastfmName);
+    }
+
+    private formatDate(date: Date): string {
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     }
 
 }

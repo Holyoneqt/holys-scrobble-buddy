@@ -7,4 +7,5 @@
 .album-cover {
     height: 60% !important;
     width: auto !important;
+    border-radius: 0;
 }
