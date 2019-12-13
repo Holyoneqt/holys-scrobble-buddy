@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1576250823807,
+  "timestamp": 1576251102094,
   "index": "https://holyoneqt.github.io/holys-scrobble-buddy/index.html",
   "assetGroups": [
     {
@@ -56,7 +56,7 @@
     "https://holyoneqt.github.io/holys-scrobble-buddy/index.html": "db9874b71911a84037b75fa1e04612c1960c02ce",
     "https://holyoneqt.github.io/holys-scrobble-buddy/main-es2015.6e388b854046635ac19e.js": "c7a529322b94b4eece0378f629b929cc815d32be",
     "https://holyoneqt.github.io/holys-scrobble-buddy/main-es5.6e388b854046635ac19e.js": "d7c1d6e707c1b1d5124bae5637d48d74ebe69cc1",
-    "https://holyoneqt.github.io/holys-scrobble-buddy/manifest.webmanifest": "5c422e4c5bfc7012889c3654ed529f1b80545ec4",
+    "https://holyoneqt.github.io/holys-scrobble-buddy/manifest.webmanifest": "53396ec2c5e7f39fd4fa3a0f8d383948761f2a44",
     "https://holyoneqt.github.io/holys-scrobble-buddy/polyfills-es2015.2987770fde9daa1d8a2e.js": "cf5cbfa9134716054fb479ab21362146cdf1f2ff",
     "https://holyoneqt.github.io/holys-scrobble-buddy/polyfills-es5.6696c533341b95a3d617.js": "9ceb13edd4b10268f661814868dadb2b284f9745",
     "https://holyoneqt.github.io/holys-scrobble-buddy/runtime-es2015.edb2fcf2778e7bf1d426.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
