@@ -8,15 +8,23 @@
     <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
     <mat-datepicker #pickerTo></mat-datepicker>
 </mat-form-field>
-<button matInput mat-flat-button color="accent" class="full-width" style="margin: 12px 0;" (click)="search()">Go</button>
+<button matInput mat-flat-button color="accent" class="full-width" style="margin: 12px 0;" (click)="searchLastfm()">Go</button>
 
 <app-loading *ngIf="loading$ | async" text="Loading your top tracks..."></app-loading>
-<mat-selection-list #shoes>
-    <mat-list-option *ngFor="let track of tracks$ | async">
+<mat-selection-list #tracks>
+    <mat-list-option *ngFor="let track of tracks$ | async" [value]="track" [disabled]="trackAlreadyInPlaylist(track)">
         <img mat-list-icon class="album-cover" [src]="track.img" />
-        <h4 mat-line>{{ track.name }}</h4>
+        <h4 mat-line>
+            {{ track.name }}
+            <span style="font-style: italic; color: #1DB954;" *ngIf="trackAlreadyInPlaylist(track)">Already in Playlist</span>
+        </h4>
         <p mat-line> {{ track.artist }} </p>
         <p mat-line> {{ track.scrobbles }} scrobbles </p>
         <mat-divider></mat-divider>
     </mat-list-option>
 </mat-selection-list>
+
+<div *ngIf="tracks && tracks.selectedOptions.selected.length > 0" class="bottom-bar">
+    <span>Songs selected: {{ tracks.selectedOptions.selected.length }}</span>
+    <button mat-flat-button color="primary" (click)="addSongsToPlaylist(tracks.selectedOptions.selected)">Add to Playlist</button>
+</div>

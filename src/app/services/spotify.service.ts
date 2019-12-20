@@ -43,6 +43,10 @@ export class SpotifyService {
         return this.post(`users/${this.userProfile.id}/playlists`, { name });
     }
 
+    public searchTrack(name: string, artist: string): Observable<TrackSearchResponse> {
+        return this.get(`search?q=track:"${name}"+artist:"${artist}"&type=track&limit=1`);
+    }
+
     private get<T = any>(url: string): Observable<T> {
         return this.http.get<T>(`${this.SPOTIFY_API_URL}/${url}`, {
             headers: {
