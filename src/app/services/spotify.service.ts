@@ -43,6 +43,13 @@ export class SpotifyService {
         return this.post(`users/${this.userProfile.id}/playlists`, { name });
     }
 
+    public addTracksToPlaylist(playlistId: string, tracks: TrackObjectFull[]): Observable<AddTracksToPlaylistResponse> {
+        const trackIds = tracks.map(trackObject => trackObject.uri);
+        return this.post(`playlists/${playlistId}/tracks`, {
+            uris: trackIds,
+        });
+    }
+
     public searchTrack(name: string, artist: string): Observable<TrackSearchResponse> {
         return this.get(`search?q=track:"${name}"+artist:"${artist}"&type=track&limit=1`);
     }

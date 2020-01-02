@@ -9,6 +9,8 @@ export interface WeeklyArtistsChartsResponse {
     };
 }
 
+export interface UserInfo {}
+
 export interface Artist {
     '@attr': {
         rank: string;

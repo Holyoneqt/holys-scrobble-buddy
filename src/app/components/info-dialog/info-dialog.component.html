@@ -1,0 +1,6 @@
+<p>{{ data.info }}</p>
+<p *ngFor="let infoItem of data.infoItems">
+    {{ infoItem }}
+</p>
+
+<button mat-flat-button class="half-width" color="primary" (click)="close()">Ok</button>

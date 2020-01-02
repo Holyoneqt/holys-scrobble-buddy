@@ -16,6 +16,10 @@ export class LastfmService {
     constructor(private http: HttpClient, private localStorage: LocalStorageService, private scrapper: ScrapperService) {
     }
 
+    public getUserInfo(): Observable<any> {
+        return this.get('user.getinfo', `user=${this.lastfmUserName()}`);
+    }
+
     public getWeeklyArtistChart(): Observable<WeeklyArtistsChartsResponse> {
         return this.get('user.getweeklyartistchart', `user=${this.lastfmUserName()}`);
     }

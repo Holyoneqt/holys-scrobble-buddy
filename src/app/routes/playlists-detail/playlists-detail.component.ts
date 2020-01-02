@@ -11,14 +11,25 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 })
 export class PlaylistsDetailComponent implements OnInit {
 
+    private currentPlaylistId: string;
     public playlist$: Observable<SinglePlaylistResponse>;
 
     constructor(private spotify: SpotifyService, private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
         this.playlist$ = this.route.paramMap.pipe(
-            switchMap(paramMap => this.spotify.getPlaylist(paramMap.get('id')))
+            switchMap(paramMap => {
+                this.currentPlaylistId = paramMap.get('id');
+                return this.spotify.getPlaylist(paramMap.get('id'));
+            })
         );
+    }
+
+    public addTracksToPlaylist(tracks: TrackObjectFull[]): void {
+        console.log(tracks);
+        this.spotify.addTracksToPlaylist(this.currentPlaylistId, tracks).subscribe(() => {
+            this.playlist$ = this.spotify.getPlaylist(this.currentPlaylistId);
+        });
     }
 
 }

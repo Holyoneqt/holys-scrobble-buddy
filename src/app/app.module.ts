@@ -8,6 +8,8 @@ import { StoreModule } from '@ngrx/store';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { DateSelectorComponent } from './components/date-selector/date-selector.component';
+import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { PromptDialogComponent } from './components/prompt-dialog/prompt-dialog.component';
 import { AppMaterialModule } from './modules/app-material.module';
@@ -28,8 +30,10 @@ import { metaReducers, reducers } from './store/index.store';
         PlaylistsDetailComponent,
         AddSongComponent,
         
+        InfoDialogComponent,
         PromptDialogComponent,
         LoadingComponent,
+        DateSelectorComponent,
     ],
     imports: [
         BrowserModule,
@@ -52,6 +56,7 @@ import { metaReducers, reducers } from './store/index.store';
         }),
     ],
     entryComponents: [
+        InfoDialogComponent,
         PromptDialogComponent,
     ],
     providers: [

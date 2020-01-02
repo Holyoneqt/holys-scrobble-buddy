@@ -1,0 +1,38 @@
+<mat-expansion-panel style="margin: 4px;" expanded="true">
+    <mat-expansion-panel-header>
+        <mat-panel-description style="align-items: center;">
+            <mat-icon style="margin-right: 4px;">date_range</mat-icon>
+            {{ (dateFrom$ | async) | date }} - {{ (dateTo$ | async) | date }}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="buttons-row">
+        <button mat-stroked-button (click)="selectThis('week')">this week</button>
+        <button mat-stroked-button (click)="selectThis('month')">this month</button>
+        <button mat-stroked-button (click)="selectThis('year')">this year</button>
+    </div>
+    <div class="buttons-row">
+        <button mat-stroked-button (click)="selectLastDays(7)">last 7 days</button>
+        <button mat-stroked-button (click)="selectLastDays(30)">last 30 days</button>
+        <button mat-stroked-button (click)="selectLastDays(90)">last 90 days</button>
+    </div>
+    <div class="buttons-row">
+        <button mat-stroked-button (click)="selectLastDays(180)">last 180 days</button>
+        <button mat-stroked-button (click)="selectLastDays(365)">last 365 days</button>
+        <button mat-stroked-button (click)="selectAllTime()">all time</button>
+    </div>
+
+
+    <div style="margin-top: 8px;">
+        <mat-form-field class="half-width">
+            <input matInput disabled [matDatepicker]="pickerFrom" placeholder="From" [value]="dateFrom$ | async">
+            <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFrom disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+            <input matInput disabled [matDatepicker]="pickerTo" placeholder="To" [value]="dateTo$ | async">
+            <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+            <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
+        </mat-form-field>
+    </div>
+</mat-expansion-panel>

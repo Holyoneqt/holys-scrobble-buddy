@@ -1,0 +1,10 @@
+.buttons-row {
+    display: flex;
+}
+
+.buttons-row button {
+    height: 34px;
+    margin: 2px;
+    font-size: 12px;
+    flex: 1 0 0;
+}

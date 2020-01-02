@@ -1,18 +1,9 @@
-<mat-form-field class="half-width">
-    <input matInput [matDatepicker]="pickerFrom" placeholder="From" [formControl]="dateFrom">
-    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-    <mat-datepicker #pickerFrom></mat-datepicker>
-</mat-form-field>
-<mat-form-field class="half-width">
-    <input matInput [matDatepicker]="pickerTo" placeholder="To" [formControl]="dateTo">
-    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-    <mat-datepicker #pickerTo></mat-datepicker>
-</mat-form-field>
-<button matInput mat-flat-button color="accent" class="full-width" style="margin: 12px 0;" (click)="searchLastfm()">Go</button>
+<app-date-selector (dateFromChange)="dateFrom = $event" (dateToChange)="dateTo = $event"></app-date-selector>
+<button matInput mat-stroked-button color="primary" class="full-width" style="margin: 12px 0;" (click)="searchLastfm()">Go</button>
 
 <app-loading *ngIf="loading$ | async" text="Loading your top tracks..."></app-loading>
 <mat-selection-list #tracks>
-    <mat-list-option *ngFor="let track of tracks$ | async" [value]="track" [disabled]="trackAlreadyInPlaylist(track)">
+    <mat-list-option *ngFor="let track of tracks$ | async" [value]="track" [disabled]="trackAlreadyInPlaylist(track)" selected="true">
         <img mat-list-icon class="album-cover" [src]="track.img" />
         <h4 mat-line>
             {{ track.name }}
@@ -25,6 +16,6 @@
 </mat-selection-list>
 
 <div *ngIf="tracks && tracks.selectedOptions.selected.length > 0" class="bottom-bar">
-    <span>Songs selected: {{ tracks.selectedOptions.selected.length }}</span>
-    <button mat-flat-button color="primary" (click)="addSongsToPlaylist(tracks.selectedOptions.selected)">Add to Playlist</button>
+    <span style="margin-right: 50px;">Songs selected: {{ tracks.selectedOptions.selected.length }}</span>
+    <button mat-flat-button color="primary" (click)="dateSelectionClosed = true" (click)="addTracksToPlaylist(tracks.selectedOptions.selected)">Add to Playlist</button>
 </div>

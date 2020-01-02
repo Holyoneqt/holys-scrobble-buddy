@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatListOption } from '@angular/material';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatDialog, MatListOption } from '@angular/material';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { DateSelectorComponent } from 'src/app/components/date-selector/date-selector.component';
+import { InfoDialogComponent, InfoDialogData } from 'src/app/components/info-dialog/info-dialog.component';
 import { ScrappedTrack } from 'src/app/models/lastfm.models';
 import { LastfmService } from 'src/app/services/lastfm.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
@@ -17,18 +18,26 @@ export class AddSongComponent implements OnInit {
     private readonly FORBIDDEN_STRINGS = [
         { value: 'Starfucker', replaceWith: 'STRFKR' },
         { value: '\'', replaceWith: '' }, 
+        { value: '&amp;', replaceWith: '&'},
     ];
 
     @Input()
     public playlist: SinglePlaylistResponse;
 
-    public dateFrom = new FormControl(new Date());
-    public dateTo = new FormControl(new Date());
+    @ViewChild(DateSelectorComponent, { static: true })
+    public dateSelector: DateSelectorComponent;
 
+    public dateFrom: Date;
+    public dateTo: Date;
+
+    public dateSelectionClosed = false;
     public loading$: BehaviorSubject<boolean>;
     public tracks$: Observable<ScrappedTrack[]>;
 
-    constructor(private lastfm: LastfmService, private spotify: SpotifyService) { }
+    @Output()
+    public addTracks = new EventEmitter<TrackObjectFull[]>();
+
+    constructor(private lastfm: LastfmService, private spotify: SpotifyService, private dialog: MatDialog) { }
 
     public ngOnInit(): void {
         console.log(this.playlist);
@@ -37,12 +46,13 @@ export class AddSongComponent implements OnInit {
 
     public searchLastfm(): void {
         this.loading$.next(true);
-        this.tracks$ = this.lastfm.getTopTracks(this.dateFrom.value, this.dateTo.value).pipe(
+        this.dateSelector.closeExansionPanel();
+        this.tracks$ = this.lastfm.getTopTracks(this.dateFrom, this.dateTo).pipe(
             finalize(() => this.loading$.next(false)),
         );
     }
 
-    public addSongsToPlaylist(listOptions: MatListOption[]): void {
+    public addTracksToPlaylist(listOptions: MatListOption[]): void {
         const tracks: ScrappedTrack[] = listOptions.map(option => option.value);
         const httpRequests = tracks.map(track => this.spotify.searchTrack(this.replaceForbiddenStrings(track.name), this.replaceForbiddenStrings(track.artist)));
 
@@ -51,8 +61,16 @@ export class AddSongComponent implements OnInit {
             foundTracks = responses.filter(response => response.tracks.items.length > 0).map(response => response.tracks.items[0]);
             noMatches = responses.filter(response => response.tracks.items.length === 0).map(response => response.tracks.href);
             
-            console.log(foundTracks);
-            console.log(noMatches);
+            if (noMatches.length > 0) {
+                this.dialog.open(InfoDialogComponent, {
+                    data: {
+                        info: 'Some Tracks could not be added.',
+                        infoItems: noMatches,
+                    } as InfoDialogData
+                }).afterClosed().subscribe(() => this.addTracks.emit(foundTracks));
+            } else {
+                this.addTracks.emit(foundTracks);
+            }
         });
     }
 
