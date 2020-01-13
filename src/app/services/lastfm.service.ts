@@ -11,7 +11,7 @@ import { ScrapperService } from './scrapper.service';
 @Injectable({ providedIn: 'root' })
 export class LastfmService {
 
-    private readonly LASTFM_API_URL = 'http://ws.audioscrobbler.com/2.0/';
+    private readonly LASTFM_API_URL = 'https://ws.audioscrobbler.com/2.0/';
 
     constructor(private http: HttpClient, private localStorage: LocalStorageService, private scrapper: ScrapperService) {
     }

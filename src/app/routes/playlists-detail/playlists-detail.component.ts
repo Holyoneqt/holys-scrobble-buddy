@@ -19,6 +19,7 @@ export class PlaylistsDetailComponent implements OnInit {
     public ngOnInit(): void {
         this.playlist$ = this.route.paramMap.pipe(
             switchMap(paramMap => {
+                console.log(paramMap.get('id'));
                 this.currentPlaylistId = paramMap.get('id');
                 return this.spotify.getPlaylist(paramMap.get('id'));
             })
@@ -26,7 +27,6 @@ export class PlaylistsDetailComponent implements OnInit {
     }
 
     public addTracksToPlaylist(tracks: TrackObjectFull[]): void {
-        console.log(tracks);
         this.spotify.addTracksToPlaylist(this.currentPlaylistId, tracks).subscribe(() => {
             this.playlist$ = this.spotify.getPlaylist(this.currentPlaylistId);
         });

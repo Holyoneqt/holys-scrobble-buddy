@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +20,7 @@ import { LoginComponent } from './routes/login/login.component';
 import { PlaylistsDetailComponent } from './routes/playlists-detail/playlists-detail.component';
 import { PlaylistsComponent } from './routes/playlists/playlists.component';
 import { metaReducers, reducers } from './store/index.store';
+import { HolysErrorHandler } from './util/HolysErrorHandler';
 
 @NgModule({
     declarations: [
@@ -60,6 +61,10 @@ import { metaReducers, reducers } from './store/index.store';
         PromptDialogComponent,
     ],
     providers: [
+        {
+            provide: ErrorHandler,
+            useClass: HolysErrorHandler,
+        }
     ],
     bootstrap: [AppComponent]
 })

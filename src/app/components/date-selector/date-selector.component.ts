@@ -12,12 +12,12 @@ import { LastfmService } from 'src/app/services/lastfm.service';
 export class DateSelectorComponent implements OnInit {
 
     @ViewChild(MatExpansionPanel, { static: true })
-    protected expansionPanel: MatExpansionPanel;
+    public expansionPanel: MatExpansionPanel;
 
     private userCreatedDate: Date;
 
-    protected dateFrom$: BehaviorSubject<Date>;
-    protected dateTo$: BehaviorSubject<Date>;
+    public dateFrom$: BehaviorSubject<Date>;
+    public dateTo$: BehaviorSubject<Date>;
 
     @Output()
     public dateFromChange = new EventEmitter<Date>();
@@ -39,17 +39,17 @@ export class DateSelectorComponent implements OnInit {
         this.expansionPanel.close();
     }
 
-    protected selectThis(option: 'year' | 'month' | 'week'): void {
+    public selectThis(option: 'year' | 'month' | 'week'): void {
         this.dateFrom$.next(dayjs().startOf(option).toDate());
         this.dateTo$.next(dayjs().endOf(option).toDate());
     }
 
-    protected selectLastDays(days: number): void {
+    public selectLastDays(days: number): void {
         this.dateTo$.next(new Date());
         this.dateFrom$.next(dayjs(this.dateFrom$.value).subtract(days, 'day').toDate());
     }
 
-    protected selectAllTime(): void {
+    public selectAllTime(): void {
         this.dateTo$.next(new Date());
         this.dateFrom$.next(this.userCreatedDate);
     }
