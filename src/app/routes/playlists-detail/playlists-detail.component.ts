@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
@@ -9,27 +9,34 @@ import { SpotifyService } from 'src/app/services/spotify.service';
     templateUrl: './playlists-detail.component.html',
     styleUrls: ['./playlists-detail.component.css']
 })
-export class PlaylistsDetailComponent implements OnInit {
+export class PlaylistsDetailComponent implements OnInit, OnDestroy {
 
     private currentPlaylistId: string;
-    public playlist$: Observable<SinglePlaylistResponse>;
+    public subscription: Subscription;
+    public playlist: SinglePlaylistResponse;
 
     constructor(private spotify: SpotifyService, private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
-        this.playlist$ = this.route.paramMap.pipe(
+        this.subscription = this.route.paramMap.pipe(
             switchMap(paramMap => {
-                console.log(paramMap.get('id'));
                 this.currentPlaylistId = paramMap.get('id');
                 return this.spotify.getPlaylist(paramMap.get('id'));
             })
-        );
+        ).subscribe(playlist => {
+            this.playlist = playlist;
+        });
+    }
+
+    public ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     public addTracksToPlaylist(tracks: TrackObjectFull[]): void {
-        this.spotify.addTracksToPlaylist(this.currentPlaylistId, tracks).subscribe(() => {
-            this.playlist$ = this.spotify.getPlaylist(this.currentPlaylistId);
-        });
+        this.spotify.addTracksToPlaylist(this.currentPlaylistId, tracks).pipe(
+            switchMap(() => this.spotify.getPlaylist(this.currentPlaylistId)),
+            map(response => this.playlist = response),
+        ).subscribe();
     }
 
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Artist } from 'src/app/models/lastfm.models';
 import { DialogService } from 'src/app/services/dialog.service';
 import { LastfmService } from 'src/app/services/lastfm.service';
@@ -26,18 +25,11 @@ export class HomeComponent implements OnInit {
                 submitText: 'Save',
             }).subscribe(lastfmName => {
                 this.localStorage.set(LocalStorageKey.LastfmName, lastfmName);
-                this.weeklyArtistsChart = this.lastfm.getWeeklyArtistChart().pipe(
-                    map(response => response.weeklyartistchart.artist.slice(0, 5)),
-                );
             });
-        } else {
-            this.weeklyArtistsChart = this.lastfm.getWeeklyArtistChart().pipe(
-                map(response => response.weeklyartistchart.artist.slice(0, 5)),
-            );
         }
 
         // this.lastfm.getTopTracks(new Date(), new Date()).subscribe(r => console.log(r));
-        this.spotify.searchTrack('Astoria', 'STRFKR').subscribe(response => console.log(response));
+        // this.spotify.searchTrack('Astoria', 'STRFKR').subscribe(response => console.log(response));
     }
 
 }

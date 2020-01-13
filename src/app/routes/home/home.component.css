@@ -1,0 +1,17 @@
+.home-tile {
+    height: 95%;
+    width: 90%;
+    padding: 0;
+}
+
+.home-tile mat-icon {
+    height: 60px;
+    width: 60px;
+    font-size: 60px;
+    margin: 10px auto;
+    display: block;
+}
+
+.home-tile p {
+    text-align: center;
+}

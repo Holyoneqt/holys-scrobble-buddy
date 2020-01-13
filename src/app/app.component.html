@@ -5,6 +5,8 @@
             <mat-divider></mat-divider>
             <a mat-list-item (click)="sidenav.toggle()" routerLink="playlists" routerLinkActive="active">Playlists</a>
             <mat-divider></mat-divider>
+            <a mat-list-item (click)="sidenav.toggle()" routerLink="config" routerLinkActive="active">Options</a>
+            <mat-divider></mat-divider>
         </mat-nav-list>
         <mat-card class="user-profile-card">
             <mat-card-header *ngIf="userProfile$ | async as userProfile; else userProfileNotLoggedIn">

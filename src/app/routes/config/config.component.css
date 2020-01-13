@@ -1,0 +1,32 @@
+.toggle-advanced {
+    width: 160px;
+    margin: 0 auto;
+}
+
+.toggle-advanced:hover {
+    cursor: pointer;
+}
+
+.toggle-advanced span {
+    position: relative;
+    bottom: 6px;
+}
+
+.advanced-settings {
+    overflow: hidden;
+}
+
+.console mat-toolbar {
+    height: 32px;
+    font-size: 18px;
+}
+
+.console pre {
+    border: 1px solid rgba(0,0,0,0.3);
+    margin: 0;
+    padding: 8px;
+    min-height: 140px;
+    max-height: 140px;
+    overflow: scroll;
+    white-space: normal;
+}

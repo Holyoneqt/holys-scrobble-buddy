@@ -1,0 +1,15 @@
+<div class="toggle-advanced" (click)="toggleAdvancedSettings()">
+    <span>Developer Settings</span>
+    <mat-icon>{{ advancedSettingsIcon }}</mat-icon> 
+</div>
+<div [style.height]="advancedSettingsHeight" class="advanced-settings">
+    <div class="console">
+        <mat-toolbar color="accent">
+            Console
+        </mat-toolbar>
+        <pre><ng-container *ngFor="let message of (logService.messages$ | async)">
+            {{ message.type }}: {{ message.message | json }}
+             <br/>
+        </ng-container></pre>
+    </div>
+</div>

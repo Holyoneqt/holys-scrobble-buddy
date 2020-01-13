@@ -21,6 +21,7 @@ import { PlaylistsDetailComponent } from './routes/playlists-detail/playlists-de
 import { PlaylistsComponent } from './routes/playlists/playlists.component';
 import { metaReducers, reducers } from './store/index.store';
 import { HolysErrorHandler } from './util/HolysErrorHandler';
+import { ConfigComponent } from './routes/config/config.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { HolysErrorHandler } from './util/HolysErrorHandler';
         PromptDialogComponent,
         LoadingComponent,
         DateSelectorComponent,
+        ConfigComponent,
     ],
     imports: [
         BrowserModule,

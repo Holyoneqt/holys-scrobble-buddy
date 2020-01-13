@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '../routes/auth.guard';
+import { ConfigComponent } from '../routes/config/config.component';
 import { HomeComponent } from '../routes/home/home.component';
 import { LoginComponent } from '../routes/login/login.component';
 import { PlaylistsDetailComponent } from '../routes/playlists-detail/playlists-detail.component';
@@ -32,6 +33,11 @@ const routes: Routes = [
     {
         path: 'playlists/:id',
         component: PlaylistsDetailComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'config',
+        component: ConfigComponent,
         canActivate: [AuthGuard],
     },
 ];

@@ -1,4 +1,14 @@
-<app-date-selector></app-date-selector>
-<ng-container *ngFor="let artist of (weeklyArtistsChart | async)">
-    <p>{{ artist.name }} ({{ artist.playcount }})</p>
-</ng-container>
+<mat-grid-list cols="2" rowHeight="140px">
+    <mat-grid-tile>
+        <mat-card class="home-tile">
+            <mat-icon>audiotrack</mat-icon>
+            <p>Browse your last.fm top tracks.</p>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card class="home-tile">
+            <mat-icon>replay</mat-icon>
+            <p>It's rewind time!</p>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
