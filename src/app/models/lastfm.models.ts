@@ -21,15 +21,14 @@ export interface Artist {
     url: string;
 }
 
-export interface ScrappedTrack extends ScrappedData {
+export interface ScrappedTrack {
     img: string;
     name: string;
     scrobbels: number;
     artist: string;
 }
 
-// tslint:disable-next-line: no-empty-interface
-export interface ScrappedArtist extends ScrappedData {
+export interface ScrappedArtist {
     img: string;
     name: string;
     scrobbels: number;

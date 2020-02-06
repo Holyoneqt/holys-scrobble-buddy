@@ -1,9 +1,13 @@
-<div *ngIf="weeklyArtistsChart?.length > 0; else weeklyTopArtists">
-    <app-loading text="Loading your recent scrobbels" size="40"></app-loading>
-</div>
-<ng-template #weeklyTopArtists>
-    <img *ngFor="let artist of weeklyArtistsChart" [src]="artist.img">
-</ng-template>
+<h4 style="text-align: center;">Your top artists in the past 7 days</h4>
+<app-loading *ngIf="loading$ | async" text="Loading your recent top artists"></app-loading>
+<mat-grid-list cols="3" rowHeight="1:1" style="margin: 4px;">
+    <mat-grid-tile *ngFor="let artist of (weeklyTopArtists$ | async)">
+        <div class="top-artist--tile" [style.background]="'url(' + artist.img + ')'">
+            <div class="top-artist--name">{{ artist.name }}</div>
+            <div class="top-artist--scrobbels">{{ artist.scrobbels }} scrobbels</div>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
 
 <mat-divider></mat-divider>
 

@@ -17,7 +17,7 @@ export class ScrapperService {
                 img: row.scrapFirstByTag<HTMLImageElement>('img').src,
                 name: row.scrapFirstByClassName('chartlist-name').children[0].innerHTML,
                 artist: row.scrapFirstByClassName('chartlist-artist').children[0].innerHTML,
-                scrobbels: parseFloat(row.scrapFirstByClassName('chartlist-name').textContent.trim()),
+                scrobbels: parseFloat(row.scrapFirstByClassName('chartlist-count-bar-value').textContent.trim()),
             };
         });
     }
@@ -27,7 +27,7 @@ export class ScrapperService {
             return {
                 img: row.scrapFirstByTag<HTMLImageElement>('img').src,
                 name: row.scrapFirstByClassName('chartlist-name').children[0].innerHTML,
-                scrobbels: parseFloat(row.scrapFirstByClassName('chartlist-name').textContent.trim()),
+                scrobbels: parseFloat(row.scrapFirstByClassName('chartlist-count-bar-value').textContent.trim()),
             };
         });
     }

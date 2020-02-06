@@ -15,7 +15,7 @@ export class LoadingComponent {
 
     /** Size of the loading spinner */
     @Input()
-    public size: number;
+    public size: number = 40;
 
     constructor() { }
 

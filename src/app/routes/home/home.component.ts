@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { finalize, map } from 'rxjs/operators';
 import { ScrappedArtist } from 'src/app/models/lastfm.models';
 import { DialogService } from 'src/app/services/dialog.service';
 import { LastfmService } from 'src/app/services/lastfm.service';
@@ -31,7 +33,8 @@ export class HomeComponent implements OnInit {
         },
     ];
 
-    public weeklyArtistsChart: ScrappedArtist[];
+    public loading$: BehaviorSubject<boolean>;
+    public weeklyTopArtists$: Observable<ScrappedArtist[]>;
 
     constructor(private localStorage: LocalStorageService, private dialogService: DialogService, private lastfm: LastfmService, private spotify: SpotifyService) { }
 
@@ -46,8 +49,12 @@ export class HomeComponent implements OnInit {
             });
         }
 
+        this.loading$ = new BehaviorSubject(true);
         let lastWeek = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 7));
-        this.lastfm.getTopArtists(lastWeek, new Date()).subscribe(r => this.weeklyArtistsChart = r);
+        this.weeklyTopArtists$ = this.lastfm.getTopArtists(lastWeek, new Date()).pipe(
+            map(artists => artists.map(a => ({ ...a, img: a.img.replace('avatar70s', 'avatar80s') })).slice(0, 9)),
+            finalize(() => this.loading$.next(false)),
+        );
         // this.lastfm.getTopTracks(new Date(), new Date()).subscribe(r => console.log(r));
         // this.spotify.searchTrack('Astoria', 'STRFKR').subscribe(response => console.log(response));
     }
