@@ -1,8 +1,9 @@
-<mat-card *ngIf="(currentlyPlayingTrack$ | async) as currentlyPlaying" style="margin: 8px; padding-bottom: 0px;">
+<mat-card *ngIf="(currentlyPlayingTrack$ | async) as currentlyPlaying" style="margin: 8px; padding: 0px;">
     <mat-card-header>
         <div mat-card-avatar style="background-size: cover !important;" [style.background]="'url(' + currentlyPlaying.item.album.images[1].url + ')'"></div>
-        <mat-card-title>{{ currentlyPlaying.item.name }}</mat-card-title>
-        <mat-card-subtitle>{{ currentlyPlaying.item.artists[0].name }}</mat-card-subtitle>
+        <mat-card-title style="margin: 8px 0;">{{ currentlyPlaying.item.name }}</mat-card-title>
+        <mat-card-subtitle style="margin: 0;">{{ currentlyPlaying.item.artists[0].name }}</mat-card-subtitle>
+        <a class="currently-playing--action" mat-stroked-button target="_blank" [href]="getGeniusUrl(currentlyPlaying)">Lyrics</a>
     </mat-card-header>
 </mat-card>
 

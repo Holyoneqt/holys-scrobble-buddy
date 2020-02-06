@@ -52,4 +52,15 @@
 
 .mat-card-avatar {
     background-size: cover !important;
+    height: 64px;
+    width: 64px;
+    border-radius: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.currently-playing--action {
+    position: absolute;
+    right: 8px;
+    top: 14px;
 }

@@ -62,4 +62,10 @@ export class HomeComponent implements OnInit {
         // this.spotify.searchTrack('Astoria', 'STRFKR').subscribe(response => console.log(response));
     }
 
+    private getGeniusUrl(track: CurrentlyPlayingResponse): string {
+        const artist = track.item.artists[0].name.split(' ').join('-');
+        const trackName = track.item.name.split(' ').join('-');
+        return `https://www.genius.com/${artist}-${trackName}-lyrics`;
+    }
+
 }
