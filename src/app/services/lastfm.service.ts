@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
-import { ScrappedTrack, WeeklyArtistsChartsResponse } from '../models/lastfm.models';
+import { ScrappedArtist, ScrappedTrack, WeeklyArtistsChartsResponse } from '../models/lastfm.models';
 import { LocalStorageKey, LocalStorageService } from './localstorage.service';
 import { ScrapperService } from './scrapper.service';
 
@@ -25,16 +25,29 @@ export class LastfmService {
     }
 
     public getTopTracks(from: Date, to: Date): Observable<ScrappedTrack[]> {
-        return this.scrap(from, to);
+        return this.scrapTracks(from, to);
     }
 
-    private scrap(from: Date, to: Date): Observable<ScrappedTrack[]> {
+    public getTopArtists(from: Date, to: Date): Observable<ScrappedArtist[]> {
+        return this.scrapArtists(from, to);
+    }
+
+    private scrapTracks(from: Date, to: Date): Observable<ScrappedTrack[]> {
         return this.http.get(`
-            https://cors-anywhere.herokuapp.com/` + 
+            https://cors-anywhere.herokuapp.com/` +
             `https://www.last.fm/user/${this.lastfmUserName()}/library/tracks?from=${this.formatDate(from)}&to=${this.formatDate(to)}
-        `, {responseType: 'text'}).pipe(
-            map(response => this.scrapper.scrap(response))
-        );
+        `, { responseType: 'text' }).pipe(
+                map(response => this.scrapper.scrapTracks(response))
+            );
+    }
+
+    private scrapArtists(from: Date, to: Date): Observable<ScrappedArtist[]> {
+        return this.http.get(`
+            https://cors-anywhere.herokuapp.com/` +
+            `https://www.last.fm/user/${this.lastfmUserName()}/library/artists?from=${this.formatDate(from)}&to=${this.formatDate(to)}
+        `, { responseType: 'text' }).pipe(
+                map(response => this.scrapper.scrapArtist(response))
+            );
     }
 
     private get<T = any>(method: string, ...additionalParams: string[]): Observable<T> {

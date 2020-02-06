@@ -1,30 +1,59 @@
 import { Injectable } from '@angular/core';
+import { element } from 'protractor';
 
-import { ScrappedTrack } from '../models/lastfm.models';
+import { ScrappedArtist, ScrappedTrack } from '../models/lastfm.models';
 
 @Injectable({ providedIn: 'root' })
 export class ScrapperService {
 
+    private parser = new DOMParser();
+
     constructor() {
     }
 
-    public scrap(html: string): ScrappedTrack[] {
-        const parser = new DOMParser();
-        const root = parser.parseFromString(html, 'text/html');
-        const chartlistTableRows: HTMLCollectionOf<HTMLTableRowElement> = root.getElementsByClassName('chartlist-row') as HTMLCollectionOf<HTMLTableRowElement>;
-        
-        const tracks: ScrappedTrack[] = [];
-        // tslint:disable-next-line: prefer-for-of
-        for (let i = 0; i < chartlistTableRows.length; i++) {
-            const track = {} as ScrappedTrack;
-            const tableRow = chartlistTableRows[i];
-            track.img = tableRow.getElementsByTagName('img')[0].src;
-            track.name = tableRow.getElementsByClassName('chartlist-name')[0].children[0].innerHTML;
-            track.artist = tableRow.getElementsByClassName('chartlist-artist')[0].children[0].innerHTML;
-            track.scrobbles = parseFloat(tableRow.getElementsByClassName('chartlist-count-bar-value')[0].textContent.trim());
-            tracks.push(track);
-        }
-        return (tracks);
+    public scrapTracks(html: string): ScrappedTrack[] {
+        return this.scrapDataList(html).map<ScrappedTrack>(row => {
+            return {
+                img: row.scrapFirstByTag<HTMLImageElement>('img').src,
+                name: row.scrapFirstByClassName('chartlist-name').children[0].innerHTML,
+                artist: row.scrapFirstByClassName('chartlist-artist').children[0].innerHTML,
+                scrobbels: parseFloat(row.scrapFirstByClassName('chartlist-name').textContent.trim()),
+            };
+        });
+    }
+
+    public scrapArtist(html: string): ScrappedArtist[] {
+        return this.scrapDataList(html).map<ScrappedArtist>(row => {
+            return {
+                img: row.scrapFirstByTag<HTMLImageElement>('img').src,
+                name: row.scrapFirstByClassName('chartlist-name').children[0].innerHTML,
+                scrobbels: parseFloat(row.scrapFirstByClassName('chartlist-name').textContent.trim()),
+            };
+        });
+    }
+
+    private scrapDataList(html: string): Scrapable[] {
+        const root = this.parser.parseFromString(html, 'text/html');
+        return Array.from(root.getElementsByClassName('chartlist-row') as HTMLCollectionOf<HTMLTableRowElement>)
+            .map(e => new Scrapable(e));
+    }
+
+}
+
+class Scrapable {
+
+    private element: HTMLElement;
+
+    constructor(e: HTMLElement) {
+        this.element = e;
+    }
+
+    public scrapFirstByTag<T extends HTMLElement>(tag: string): T {
+        return this.element.getElementsByTagName(tag)[0] as T;
+    }
+
+    public scrapFirstByClassName<T extends HTMLElement>(className: string): T {
+        return this.element.getElementsByClassName(className)[0] as T;
     }
 
 }

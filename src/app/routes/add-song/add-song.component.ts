@@ -40,7 +40,6 @@ export class AddSongComponent implements OnInit {
     constructor(private lastfm: LastfmService, private spotify: SpotifyService, private dialog: MatDialog) { }
 
     public ngOnInit(): void {
-        console.log(this.playlist);
         this.loading$ = new BehaviorSubject(false);
     }
 

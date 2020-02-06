@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Artist } from 'src/app/models/lastfm.models';
+import { ScrappedArtist } from 'src/app/models/lastfm.models';
 import { DialogService } from 'src/app/services/dialog.service';
 import { LastfmService } from 'src/app/services/lastfm.service';
 import { LocalStorageKey, LocalStorageService } from 'src/app/services/localstorage.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
+
+interface HomeTileData {
+    icon: string;
+    description: string;
+    url: string;
+}
 
 @Component({
     selector: 'app-home',
@@ -13,7 +18,20 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 })
 export class HomeComponent implements OnInit {
 
-    public weeklyArtistsChart: Observable<Artist[]>;
+    public readonly TILES: HomeTileData[] = [
+        {
+            icon: 'audiotrack',
+            description: 'Browse last.fm',
+            url: 'browse',
+        },
+        {
+            icon: 'replay',
+            description: 'It\'s rewind time',
+            url: '',
+        },
+    ];
+
+    public weeklyArtistsChart: ScrappedArtist[];
 
     constructor(private localStorage: LocalStorageService, private dialogService: DialogService, private lastfm: LastfmService, private spotify: SpotifyService) { }
 
@@ -28,6 +46,8 @@ export class HomeComponent implements OnInit {
             });
         }
 
+        let lastWeek = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 7));
+        this.lastfm.getTopArtists(lastWeek, new Date()).subscribe(r => this.weeklyArtistsChart = r);
         // this.lastfm.getTopTracks(new Date(), new Date()).subscribe(r => console.log(r));
         // this.spotify.searchTrack('Astoria', 'STRFKR').subscribe(response => console.log(response));
     }

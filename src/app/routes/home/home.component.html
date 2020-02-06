@@ -1,14 +1,17 @@
-<mat-grid-list cols="2" rowHeight="140px">
-    <mat-grid-tile>
-        <mat-card class="home-tile">
-            <mat-icon>audiotrack</mat-icon>
-            <p>Browse your last.fm top tracks.</p>
-        </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <mat-card class="home-tile">
-            <mat-icon>replay</mat-icon>
-            <p>It's rewind time!</p>
+<div *ngIf="weeklyArtistsChart?.length > 0; else weeklyTopArtists">
+    <app-loading text="Loading your recent scrobbels" size="40"></app-loading>
+</div>
+<ng-template #weeklyTopArtists>
+    <img *ngFor="let artist of weeklyArtistsChart" [src]="artist.img">
+</ng-template>
+
+<mat-divider></mat-divider>
+
+<mat-grid-list cols="3" rowHeight="140px">
+    <mat-grid-tile *ngFor="let tile of TILES">
+        <mat-card class="home-tile mat-elevation-z8" [routerLink]="'/' + tile.url">
+            <mat-icon>{{ tile.icon }}</mat-icon>
+            <p>{{ tile.description }}</p>
         </mat-card>
     </mat-grid-tile>
 </mat-grid-list>

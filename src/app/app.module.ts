@@ -22,6 +22,7 @@ import { PlaylistsComponent } from './routes/playlists/playlists.component';
 import { metaReducers, reducers } from './store/index.store';
 import { HolysErrorHandler } from './util/HolysErrorHandler';
 import { ConfigComponent } from './routes/config/config.component';
+import { BrowseComponent } from './routes/browse/browse.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { ConfigComponent } from './routes/config/config.component';
         LoadingComponent,
         DateSelectorComponent,
         ConfigComponent,
+        BrowseComponent,
     ],
     imports: [
         BrowserModule,
