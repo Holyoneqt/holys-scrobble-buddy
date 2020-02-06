@@ -3,14 +3,14 @@
 
 <app-loading *ngIf="loading$ | async" text="Loading your top tracks..."></app-loading>
 <mat-selection-list #tracks>
-    <mat-list-option *ngFor="let track of tracks$ | async" [value]="track" [disabled]="trackAlreadyInPlaylist(track)" selected="true">
+    <mat-list-option *ngFor="let track of tracks$ | async" [value]="track" [disabled]="trackAlreadyInPlaylist(track)" [selected]="!trackAlreadyInPlaylist(track)">
         <img mat-list-icon class="album-cover" [src]="track.img" />
         <h4 mat-line>
             {{ track.name }}
             <span style="font-style: italic; color: #1DB954;" *ngIf="trackAlreadyInPlaylist(track)">Already in Playlist</span>
         </h4>
         <p mat-line> {{ track.artist }} </p>
-        <p mat-line> {{ track.scrobbles }} scrobbles </p>
+        <p mat-line> {{ track.scrobbels }} scrobbels </p>
         <mat-divider></mat-divider>
     </mat-list-option>
 </mat-selection-list>

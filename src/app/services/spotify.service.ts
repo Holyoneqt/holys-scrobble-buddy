@@ -24,11 +24,15 @@ export class SpotifyService {
             `?client_id=${environment.spotifyClientId}` +
             `&response_type=token` +
             `&redirect_uri=${environment.spotifyCallbackUrl}` +
-            `&scope=playlist-modify-public playlist-read-private playlist-modify-private`;
+            `&scope=playlist-modify-public playlist-read-private playlist-modify-private user-read-currently-playing`;
     }
 
     public getUserProfile(): Observable<CurrentUsersProfileResponse> {
         return this.get('me');
+    }
+
+    public getUsersCurrentlyPlayingTrack(): Observable<CurrentlyPlayingResponse> {
+        return this.get('me/player/currently-playing');
     }
 
     public getUserPlaylists(): Observable<ListOfCurrentUsersPlaylistsResponse> {

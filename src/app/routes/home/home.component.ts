@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
 
     public loading$: BehaviorSubject<boolean>;
     public weeklyTopArtists$: Observable<ScrappedArtist[]>;
+    public currentlyPlayingTrack$: Observable<CurrentlyPlayingResponse>;
 
     constructor(private localStorage: LocalStorageService, private dialogService: DialogService, private lastfm: LastfmService, private spotify: SpotifyService) { }
 
@@ -55,6 +56,8 @@ export class HomeComponent implements OnInit {
             map(artists => artists.map(a => ({ ...a, img: a.img.replace('avatar70s', 'avatar80s') })).slice(0, 9)),
             finalize(() => this.loading$.next(false)),
         );
+
+        this.currentlyPlayingTrack$ = this.spotify.getUsersCurrentlyPlayingTrack();
         // this.lastfm.getTopTracks(new Date(), new Date()).subscribe(r => console.log(r));
         // this.spotify.searchTrack('Astoria', 'STRFKR').subscribe(response => console.log(response));
     }

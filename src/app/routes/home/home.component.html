@@ -1,13 +1,10 @@
-<h4 style="text-align: center;">Your top artists in the past 7 days</h4>
-<app-loading *ngIf="loading$ | async" text="Loading your recent top artists"></app-loading>
-<mat-grid-list cols="3" rowHeight="1:1" style="margin: 4px;">
-    <mat-grid-tile *ngFor="let artist of (weeklyTopArtists$ | async)">
-        <div class="top-artist--tile" [style.background]="'url(' + artist.img + ')'">
-            <div class="top-artist--name">{{ artist.name }}</div>
-            <div class="top-artist--scrobbels">{{ artist.scrobbels }} scrobbels</div>
-        </div>
-    </mat-grid-tile>
-</mat-grid-list>
+<mat-card *ngIf="(currentlyPlayingTrack$ | async) as currentlyPlaying" style="margin: 8px; padding-bottom: 0px;">
+    <mat-card-header>
+        <div mat-card-avatar style="background-size: cover !important;" [style.background]="'url(' + currentlyPlaying.item.album.images[1].url + ')'"></div>
+        <mat-card-title>{{ currentlyPlaying.item.name }}</mat-card-title>
+        <mat-card-subtitle>{{ currentlyPlaying.item.artists[0].name }}</mat-card-subtitle>
+    </mat-card-header>
+</mat-card>
 
 <mat-divider></mat-divider>
 
@@ -17,5 +14,18 @@
             <mat-icon>{{ tile.icon }}</mat-icon>
             <p>{{ tile.description }}</p>
         </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<mat-divider></mat-divider>
+
+<h4 style="text-align: center;">Your top artists in the past 7 days</h4>
+<app-loading *ngIf="loading$ | async" text="Loading your recent top artists"></app-loading>
+<mat-grid-list cols="3" rowHeight="1:1" style="margin: 4px;">
+    <mat-grid-tile *ngFor="let artist of (weeklyTopArtists$ | async)">
+        <div class="top-artist--tile" [style.background]="'url(' + artist.img + ')'">
+            <div class="top-artist--name">{{ artist.name }}</div>
+            <div class="top-artist--scrobbels">{{ artist.scrobbels }} scrobbels</div>
+        </div>
     </mat-grid-tile>
 </mat-grid-list>

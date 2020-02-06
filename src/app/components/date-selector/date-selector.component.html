@@ -25,12 +25,12 @@
 
     <div style="margin-top: 8px;">
         <mat-form-field class="half-width">
-            <input matInput disabled [matDatepicker]="pickerFrom" placeholder="From" [value]="dateFrom$ | async">
+            <input matInput disabled [matDatepicker]="pickerFrom" placeholder="From" [value]="dateFrom$ | async" (dateChange)="dateFrom$.next($event.value)">
             <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
             <mat-datepicker #pickerFrom disabled="false"></mat-datepicker>
         </mat-form-field>
         <mat-form-field class="half-width">
-            <input matInput disabled [matDatepicker]="pickerTo" placeholder="To" [value]="dateTo$ | async">
+            <input matInput disabled [matDatepicker]="pickerTo" placeholder="To" [value]="dateTo$ | async" (dateChange)="dateTo$.next($event.value)">
             <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
             <mat-datepicker #pickerTo disabled="false"></mat-datepicker>
         </mat-form-field>

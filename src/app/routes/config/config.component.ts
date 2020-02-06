@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageKey, LocalStorageService } from 'src/app/services/localstorage.service';
 import { LogService } from 'src/app/services/log.service';
 
 @Component({
@@ -11,9 +12,16 @@ export class ConfigComponent implements OnInit {
     public advancedSettingsIcon = 'expand_more';
     public advancedSettingsHeight = '0px';
 
-    constructor(public logService: LogService) { }
+    public lastfmName: string;
+
+    constructor(public logService: LogService, private localStorage: LocalStorageService) { }
 
     public ngOnInit(): void {
+        this.lastfmName = this.localStorage.get(LocalStorageKey.LastfmName);
+    }
+
+    public setLastFmName(name: string): void {
+        this.localStorage.set(LocalStorageKey.LastfmName, name);
     }
 
     public toggleAdvancedSettings(): void {
