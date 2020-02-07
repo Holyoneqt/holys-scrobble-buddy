@@ -1,5 +1,5 @@
 .home-tile {
-    height: 75%;
+    height: 65%;
     width: 70%;
     padding: 0;
 }
@@ -8,7 +8,7 @@
     height: 40px;
     width: 40px;
     font-size: 40px;
-    margin: 10px auto;
+    margin: 6px auto;
     display: block;
 }
 

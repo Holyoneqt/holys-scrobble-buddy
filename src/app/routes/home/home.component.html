@@ -13,7 +13,7 @@
     <mat-grid-tile *ngFor="let tile of TILES">
         <mat-card class="home-tile mat-elevation-z8" [routerLink]="'/' + tile.url">
             <mat-icon>{{ tile.icon }}</mat-icon>
-            <p>{{ tile.description }}</p>
+            <p style="margin: 0;">{{ tile.description }}</p>
         </mat-card>
     </mat-grid-tile>
 </mat-grid-list>

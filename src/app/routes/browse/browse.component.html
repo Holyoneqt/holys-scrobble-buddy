@@ -1,1 +1,22 @@
-<p>browse works!</p>
+<mat-form-field appearance="outline" style="display: block; margin: 8px 16px;">
+    <mat-label>last.fm username</mat-label>
+    <input matInput [(ngModel)]="lastfmName">
+</mat-form-field>
+<app-date-selector (dateFromChange)="dateFrom = $event" (dateToChange)="dateTo = $event"></app-date-selector>
+<button matInput mat-stroked-button color="primary" class="full-width" style="margin: 12px 0;" (click)="searchLastfm()">Go</button>
+
+<app-loading *ngIf="loading$ | async" text="Loading your top tracks..."></app-loading>
+<mat-list #tracks>
+    <mat-list-item *ngFor="let track of tracks$ | async" class="list-item">
+        <img mat-list-icon class="album-cover" [src]="track.img" />
+        <h4 mat-line>
+            {{ track.name }} - {{ track.artist }}
+        </h4>
+        <div mat-line class="scrobbels-bar">
+            <span class="scrobbels-bar--filled" [style.width]="'calc(' + calculateScrobbelsWidth(track.scrobbels) + '% - 6px)'">
+                {{ track.scrobbels }} scrobbels
+            </span>
+        </div>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>

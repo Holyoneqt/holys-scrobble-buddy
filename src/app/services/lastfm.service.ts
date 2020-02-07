@@ -24,18 +24,18 @@ export class LastfmService {
         return this.get('user.getweeklyartistchart', `user=${this.lastfmUserName()}`);
     }
 
-    public getTopTracks(from: Date, to: Date): Observable<ScrappedTrack[]> {
-        return this.scrapTracks(from, to);
+    public getTopTracks(from: Date, to: Date, user?: string): Observable<ScrappedTrack[]> {
+        return this.scrapTracks(from, to, user || this.lastfmUserName());
     }
 
     public getTopArtists(from: Date, to: Date): Observable<ScrappedArtist[]> {
         return this.scrapArtists(from, to);
     }
 
-    private scrapTracks(from: Date, to: Date): Observable<ScrappedTrack[]> {
+    private scrapTracks(from: Date, to: Date, user: string): Observable<ScrappedTrack[]> {
         return this.http.get(`
             https://cors-anywhere.herokuapp.com/` +
-            `https://www.last.fm/user/${this.lastfmUserName()}/library/tracks?from=${this.formatDate(from)}&to=${this.formatDate(to)}
+            `https://www.last.fm/user/${user}/library/tracks?from=${this.formatDate(from)}&to=${this.formatDate(to)}
         `, { responseType: 'text' }).pipe(
                 map(response => this.scrapper.scrapTracks(response))
             );

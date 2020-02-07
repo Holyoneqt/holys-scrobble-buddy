@@ -1,0 +1,28 @@
+.mat-form-field-wrapper {
+    padding: 4px 16px !important;
+}
+
+.list-item {
+    height: 74px;
+}
+
+.album-cover {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 10px !important;
+}
+
+.scrobbels-bar {
+    width: 100%;
+    height: 16px;
+}
+
+.scrobbels-bar--filled {
+    height: 16px;
+    background-color: #1db954;
+    display: block;
+    font-size: 12px;
+    border-radius: 4px;
+    line-height: 16px;
+    padding-left: 6px;
+}
