@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
@@ -12,10 +12,10 @@ import { LocalStorageKey, LocalStorageService } from 'src/app/services/localstor
     templateUrl: './browse.component.html',
     styleUrls: ['./browse.component.css']
 })
-export class BrowseComponent implements OnInit {
+export class BrowseComponent implements OnInit, AfterViewInit {
 
     public lastfmName: string;
-    
+
     @ViewChild(DateSelectorComponent, { static: true })
     public dateSelector: DateSelectorComponent;
     public params: { from: Date, to: Date };
@@ -27,7 +27,8 @@ export class BrowseComponent implements OnInit {
     public tracks$: Observable<ScrappedTrack[]>;
 
     private topScrobbels: number;
-    
+    private shouldLoadAfterInit = false;
+
     constructor(private localStorage: LocalStorageService, private lastfm: LastfmService, private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
@@ -36,10 +37,20 @@ export class BrowseComponent implements OnInit {
                 from: params.from ? new Date(params.from) : new Date(),
                 to: params.to ? new Date(params.to) : new Date(),
             };
+             
+            if (params.from && params.to) {
+                this.shouldLoadAfterInit = true;
+            }
         });
 
         this.lastfmName = this.localStorage.get(LocalStorageKey.LastfmName);
         this.loading$ = new BehaviorSubject(false);
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.shouldLoadAfterInit) {
+            this.searchLastfm();
+        }
     }
 
     public searchLastfm(): void {
