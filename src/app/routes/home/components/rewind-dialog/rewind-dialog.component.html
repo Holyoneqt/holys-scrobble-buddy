@@ -1,0 +1,57 @@
+<mat-grid-list style="width: 250px;" cols="12" rowHeight="100px">
+    <mat-grid-tile colspan="5">
+        <mat-form-field class="full-width">
+            <mat-label>Month</mat-label>
+            <mat-select #selectMonth>
+                <mat-option *ngFor="let month of months" [value]="month.number">
+                    {{ month.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="5">
+        <mat-form-field class="full-width">
+            <mat-label>Year</mat-label>
+            <mat-select #selectYearForMonth>
+                <mat-option *ngFor="let year of years" [value]="year">
+                    {{ year }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+        <button mat-icon-button color="primary" (click)="submitMonth(selectMonth.value, selectYearForMonth.value)">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<div class="separator">OR</div>
+
+<mat-grid-list style="width: 250px;" cols="12" rowHeight="100px">
+    <mat-grid-tile colspan="5">
+        <mat-form-field class="full-width">
+            <mat-label>Season</mat-label>
+            <mat-select #selectSeason>
+                <mat-option *ngFor="let season of seasons" [value]="season">
+                    {{ season }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="5">
+        <mat-form-field class="full-width">
+            <mat-label>Year</mat-label>
+            <mat-select #selectYearForSeason>
+                <mat-option *ngFor="let year of years" [value]="year">
+                    {{ year }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+        <button mat-icon-button color="primary" (click)="submitSeason(selectSeason.value, selectYearForSeason.value)">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-grid-tile>
+</mat-grid-list>

@@ -9,9 +9,9 @@
 
 <mat-divider></mat-divider>
 
-<mat-grid-list cols="3" rowHeight="140px">
+<mat-grid-list cols="2" rowHeight="50px" style="margin: 8px;">
     <mat-grid-tile *ngFor="let tile of TILES">
-        <mat-card class="home-tile mat-elevation-z8" [routerLink]="'/' + tile.url">
+        <mat-card class="home-tile" (click)="tile.click && tile.click()">
             <mat-icon>{{ tile.icon }}</mat-icon>
             <p style="margin: 0;">{{ tile.description }}</p>
         </mat-card>
@@ -22,11 +22,11 @@
 
 <h4 style="text-align: center;">Your top artists in the past 7 days</h4>
 <app-loading *ngIf="loading$ | async" text="Loading your recent top artists"></app-loading>
-<mat-grid-list cols="3" rowHeight="1:1" style="margin: 4px;">
+<!-- <mat-grid-list cols="3" rowHeight="1:1" style="margin: 4px;">
     <mat-grid-tile *ngFor="let artist of (weeklyTopArtists$ | async)">
         <div class="top-artist--tile" [style.background]="'url(' + artist.img + ')'">
             <div class="top-artist--name">{{ artist.name }}</div>
             <div class="top-artist--scrobbels">{{ artist.scrobbels }} scrobbels</div>
         </div>
     </mat-grid-tile>
-</mat-grid-list>
+</mat-grid-list> -->

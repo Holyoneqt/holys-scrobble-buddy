@@ -5,7 +5,8 @@
 }
 
 .album-cover {
-    height: 60% !important;
+    height: 90% !important;
     width: auto !important;
-    border-radius: 0;
+    border-radius: 5px !important;
+    padding: 0 !important;
 }

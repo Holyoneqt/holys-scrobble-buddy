@@ -1,7 +1,8 @@
 .album-cover {
-    width: 50px !important;
-    height: 50px !important;
-    border-radius: 10px !important;
+    height: 90% !important;
+    width: auto !important;
+    border-radius: 5px !important;
+    padding: 0 !important;
 }
 
 .bottom-bar {

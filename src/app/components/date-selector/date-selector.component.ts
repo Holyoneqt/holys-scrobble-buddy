@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatExpansionPanel } from '@angular/material';
 import dayjs from 'dayjs';
 import { BehaviorSubject } from 'rxjs';
@@ -10,6 +10,11 @@ import { LastfmService } from 'src/app/services/lastfm.service';
     styleUrls: ['./date-selector.component.css']
 })
 export class DateSelectorComponent implements OnInit {
+
+    @Input()
+    public from: Date = new Date();
+    @Input()
+    public to: Date = new Date();
 
     @ViewChild(MatExpansionPanel, { static: true })
     public expansionPanel: MatExpansionPanel;
@@ -29,9 +34,9 @@ export class DateSelectorComponent implements OnInit {
     public ngOnInit(): void {
         this.lastfm.getUserInfo().subscribe(userInfo => this.userCreatedDate = new Date(userInfo.user.registered.unixtime * 1000));
 
-        this.dateFrom$ = new BehaviorSubject(new Date());
+        this.dateFrom$ = new BehaviorSubject(this.from);
         this.dateFrom$.subscribe(date => this.dateFromChange.emit(date));
-        this.dateTo$ = new BehaviorSubject(new Date());
+        this.dateTo$ = new BehaviorSubject(this.to);
         this.dateTo$.subscribe(date => this.dateToChange.emit(date));
     }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 import { DateSelectorComponent } from 'src/app/components/date-selector/date-selector.component';
@@ -17,6 +18,7 @@ export class BrowseComponent implements OnInit {
     
     @ViewChild(DateSelectorComponent, { static: true })
     public dateSelector: DateSelectorComponent;
+    public params: { from: Date, to: Date };
 
     public dateFrom: Date;
     public dateTo: Date;
@@ -26,9 +28,16 @@ export class BrowseComponent implements OnInit {
 
     private topScrobbels: number;
     
-    constructor(private localStorage: LocalStorageService, private lastfm: LastfmService) { }
+    constructor(private localStorage: LocalStorageService, private lastfm: LastfmService, private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
+        this.route.queryParams.subscribe(params => {
+            this.params = {
+                from: params.from ? new Date(params.from) : new Date(),
+                to: params.to ? new Date(params.to) : new Date(),
+            };
+        });
+
         this.lastfmName = this.localStorage.get(LocalStorageKey.LastfmName);
         this.loading$ = new BehaviorSubject(false);
     }

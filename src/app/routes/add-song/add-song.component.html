@@ -4,7 +4,7 @@
 <app-loading *ngIf="loading$ | async" text="Loading your top tracks..."></app-loading>
 <mat-selection-list #tracks>
     <mat-list-option *ngFor="let track of tracks$ | async" [value]="track" [disabled]="trackAlreadyInPlaylist(track)" [selected]="!trackAlreadyInPlaylist(track)">
-        <img mat-list-icon class="album-cover" [src]="track.img" />
+        <img mat-list-icon class="album-cover" [src]="track.img  | lastfmImage" />
         <h4 mat-line>
             {{ track.name }}
             <span style="font-style: italic; color: #1DB954;" *ngIf="trackAlreadyInPlaylist(track)">Already in Playlist</span>

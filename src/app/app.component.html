@@ -11,7 +11,7 @@
         <mat-card class="user-profile-card">
             <mat-card-header *ngIf="userProfile$ | async as userProfile; else userProfileNotLoggedIn">
                 <img mat-card-avatar [src]="userProfile.images[0].url" alt="profile pic" />
-                <mat-card-title>{{ userProfile.display_name }}</mat-card-title>
+                <mat-card-title style="font-size: 13px;">{{ userProfile.display_name }}</mat-card-title>
                 <mat-card-subtitle>
                     <a style="font-size: 12px" href="{{ userProfile.external_urls.spotify }}">View on Spotify</a>
                 </mat-card-subtitle>
