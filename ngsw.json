@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1603138552373,
+  "timestamp": 1618752274281,
   "index": "https://holyoneqt.github.io/holys-scrobble-buddy/index.html",
   "assetGroups": [
     {
@@ -10,8 +10,8 @@
       "urls": [
         "https://holyoneqt.github.io/holys-scrobble-buddy/favicon.ico",
         "https://holyoneqt.github.io/holys-scrobble-buddy/index.html",
-        "https://holyoneqt.github.io/holys-scrobble-buddy/main-es2015.db5b834256e701a1b01a.js",
-        "https://holyoneqt.github.io/holys-scrobble-buddy/main-es5.db5b834256e701a1b01a.js",
+        "https://holyoneqt.github.io/holys-scrobble-buddy/main-es2015.53eb11351a74cfbf8806.js",
+        "https://holyoneqt.github.io/holys-scrobble-buddy/main-es5.53eb11351a74cfbf8806.js",
         "https://holyoneqt.github.io/holys-scrobble-buddy/manifest.webmanifest",
         "https://holyoneqt.github.io/holys-scrobble-buddy/polyfills-es2015.2987770fde9daa1d8a2e.js",
         "https://holyoneqt.github.io/holys-scrobble-buddy/polyfills-es5.ef4b1e1fc703b3ff76e3.js",
@@ -57,9 +57,9 @@
     "https://holyoneqt.github.io/holys-scrobble-buddy/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://holyoneqt.github.io/holys-scrobble-buddy/assets/icons/no_image.svg": "6ebdf28da4ba063bcca984aa2bcb614a4695cad2",
     "https://holyoneqt.github.io/holys-scrobble-buddy/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://holyoneqt.github.io/holys-scrobble-buddy/index.html": "74218323d4f9348f7c23257a76f52658c735be0a",
-    "https://holyoneqt.github.io/holys-scrobble-buddy/main-es2015.db5b834256e701a1b01a.js": "487177633376fc27c96017d2d31500903e05a48e",
-    "https://holyoneqt.github.io/holys-scrobble-buddy/main-es5.db5b834256e701a1b01a.js": "0531ea8023c99f2b5b39d39407cdd83773d2158d",
+    "https://holyoneqt.github.io/holys-scrobble-buddy/index.html": "8b368939127d873b9a624d0ecd36e645de3677e9",
+    "https://holyoneqt.github.io/holys-scrobble-buddy/main-es2015.53eb11351a74cfbf8806.js": "f52df9b5ad75f555c49338de0f94a0eb4bfcf943",
+    "https://holyoneqt.github.io/holys-scrobble-buddy/main-es5.53eb11351a74cfbf8806.js": "206aa5544bd9b0452938203ae02c49bf6044742a",
     "https://holyoneqt.github.io/holys-scrobble-buddy/manifest.webmanifest": "fd11dfee9eb8948e57bc00374bc95d29b07d8989",
     "https://holyoneqt.github.io/holys-scrobble-buddy/polyfills-es2015.2987770fde9daa1d8a2e.js": "cf5cbfa9134716054fb479ab21362146cdf1f2ff",
     "https://holyoneqt.github.io/holys-scrobble-buddy/polyfills-es5.ef4b1e1fc703b3ff76e3.js": "9ceb13edd4b10268f661814868dadb2b284f9745",
