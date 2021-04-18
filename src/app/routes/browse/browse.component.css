@@ -1,5 +1,45 @@
+.filterPanel {
+    margin: 4px;
+}
+
+.filterPanel::ng-deep > .mat-expansion-panel-content > .mat-expansion-panel-body {
+    padding: 0 8px 16px !important;
+}
+
 .mat-form-field-wrapper {
     padding: 4px 16px !important;
+}
+
+.button-toggle-group--full-width {
+    width: calc(100% - 16px);
+    margin: 8px;
+}
+
+.button-toggle-group--full-width mat-button-toggle {
+    width: 100%;
+}
+
+.selector--type {
+    padding: 2px 12px;
+}
+
+.selector--type button {
+    margin: 0 4px;
+}
+
+.selector--username {
+    margin: 4px;
+    padding: 2px 12px;
+}
+
+.selector--username input {
+    margin-left: 4px;
+    width: calc(70% - 12px);
+    border-bottom: 1px solid rgba(0,0,0,0.6);
+}
+
+.selector--username span {
+    width: calc(30% - 8px);
 }
 
 .list-item {
@@ -11,19 +51,4 @@
     width: auto !important;
     border-radius: 5px !important;
     padding: 0 !important;
-}
-
-.scrobbels-bar {
-    width: 100%;
-    height: 16px;
-}
-
-.scrobbels-bar--filled {
-    height: 16px;
-    background-color: #1db954;
-    display: block;
-    font-size: 12px;
-    border-radius: 4px;
-    line-height: 16px;
-    padding-left: 6px;
 }

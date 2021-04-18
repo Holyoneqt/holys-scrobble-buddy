@@ -1,0 +1,37 @@
+.lastfm-tile-list--tile {
+    background-size: cover !important;
+    background-position: center !important;
+    height: 95%;
+    width: 95%;
+}
+
+.lastfm-tile-list--name {
+    position: absolute;
+    background: #191414;
+    padding: 4px;
+    margin: 0px;
+    font-size: 10px;
+    font-family: monospace;
+    width: fit-content;
+    color: #ffffff;
+    bottom: 0;
+    left: 0;
+}
+
+.lastfm-tile-list--scrobbels {
+    position: absolute;
+    background: #191414;
+    padding: 4px;
+    margin: 6px;
+    font-size: 9px;
+    font-family: monospace;
+    width: fit-content;
+    color: #ffffff;
+    top: 0;
+    right: 0;
+}
+
+.lastfm-tile-list--name-detail {
+    font-style: italic;
+    font-size: 9px;
+}

@@ -1,0 +1,21 @@
+<mat-grid-list cols="3" rowHeight="1:1" style="margin: 4px;">
+    <mat-grid-tile *ngFor="let item of _items" (click)="onClick(item)">
+        <div class="lastfm-tile-list--tile" [style.background]="'url(' + (item.img | lastfmImage) + ')'">
+            <div class="lastfm-tile-list--name">
+                <div [ngSwitch]="item.type">
+                    <div *ngSwitchCase="'artist'">{{ item.artist }}</div>
+                    <div *ngSwitchCase="'album'">
+                        {{ item.album }}
+                        <div class="lastfm-tile-list--name-detail">{{ item.artist }}</div>
+                    </div>
+                    <div *ngSwitchCase="'track'">
+                        {{ item.track }}
+                        <div class="lastfm-tile-list--name-detail">{{ item.artist }}</div>
+                    </div>
+                    <div *ngSwitchDefault>{{ item.artist }}</div>
+                </div>
+            </div>
+            <div class="lastfm-tile-list--scrobbels">{{ item.scrobbels }} scrobbels</div>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>

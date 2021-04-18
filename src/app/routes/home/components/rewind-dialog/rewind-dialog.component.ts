@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import dayjs from 'dayjs';
-import { LastfmService } from 'src/app/services/lastfm.service';
+import { LastfmHttpService } from 'src/app/lastfm/services/lastfm-http.service';
 
 export interface RewindDialogReturnData {
     from: string;
@@ -28,7 +28,7 @@ export class RewindDialogComponent implements OnInit {
     public years: number[] = [];
 
     constructor(public dialogRef: MatDialogRef<RewindDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: any, private lastfm: LastfmService) { }
+                @Inject(MAT_DIALOG_DATA) public data: any, private lastfm: LastfmHttpService) { }
 
     public ngOnInit(): void {
         this.lastfm.getUserInfo().subscribe(userInfo => {
@@ -75,7 +75,7 @@ export class RewindDialogComponent implements OnInit {
 
             case 'Winter': return {
                 from: `${year}-12-20`,
-                to: `${year}-03-20`,
+                to: `${year+1}-03-20`,
             };
 
             default: return {

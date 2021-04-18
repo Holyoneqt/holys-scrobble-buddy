@@ -10,6 +10,8 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { DateSelectorComponent } from './components/date-selector/date-selector.component';
 import { InfoDialogComponent } from './components/info-dialog/info-dialog.component';
+import { LastfmListComponent } from './components/lastfm/lastfm-list/lastfm-list.component';
+import { LastfmTileListComponent } from './components/lastfm/lastfm-tile-list/lastfm-tile-list.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { PromptDialogComponent } from './components/prompt-dialog/prompt-dialog.component';
 import { AppMaterialModule } from './modules/app-material.module';
@@ -44,6 +46,9 @@ import { LastfmImagePipe } from './util/lastfm-img-url.pipe';
         BrowseComponent,
 
         LastfmImagePipe,
+
+        LastfmListComponent,
+        LastfmTileListComponent,
     ],
     imports: [
         BrowserModule,

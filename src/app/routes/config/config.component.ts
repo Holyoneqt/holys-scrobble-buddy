@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LastfmApiService } from 'src/app/lastfm/services/lastfm-api.service';
 import { LocalStorageKey, LocalStorageService } from 'src/app/services/localstorage.service';
 import { LogService } from 'src/app/services/log.service';
 
@@ -14,7 +15,7 @@ export class ConfigComponent implements OnInit {
 
     public lastfmName: string;
 
-    constructor(public logService: LogService, private localStorage: LocalStorageService) { }
+    constructor(public logService: LogService, private localStorage: LocalStorageService, private lastfmApi: LastfmApiService) { }
 
     public ngOnInit(): void {
         this.lastfmName = this.localStorage.get(LocalStorageKey.LastfmName);
@@ -22,6 +23,7 @@ export class ConfigComponent implements OnInit {
 
     public setLastFmName(name: string): void {
         this.localStorage.set(LocalStorageKey.LastfmName, name);
+        this.lastfmApi.user.next(name);
     }
 
     public toggleAdvancedSettings(): void {

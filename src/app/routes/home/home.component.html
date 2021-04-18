@@ -25,7 +25,7 @@
 <mat-grid-list cols="3" rowHeight="1:1" style="margin: 4px;">
     <mat-grid-tile *ngFor="let artist of (weeklyTopArtists$ | async)">
         <div class="top-artist--tile" [style.background]="'url(' + artist.img + ')'">
-            <div class="top-artist--name">{{ artist.name }}</div>
+            <div class="top-artist--name">{{ artist.artist }}</div>
             <div class="top-artist--scrobbels">{{ artist.scrobbels }} scrobbels</div>
         </div>
     </mat-grid-tile>

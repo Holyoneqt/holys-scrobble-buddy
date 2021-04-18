@@ -8,3 +8,7 @@
     font-size: 12px;
     flex: 1 0 0;
 }
+
+.mat-expansion-panel-body::ng-deep {
+    margin: 0 8px 16px !important; 
+}

@@ -1,0 +1,60 @@
+.lastfm-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.lastfm-list--item {
+    display: flex;
+    height: 80px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.lastfm-list--item .album-cover {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+.lastfm-list--item .album-cover img {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    border: 1px solid rgba(0,0,0,0.1);
+    margin: 9px;
+    object-fit: cover;
+}
+
+.lastfm-list--content {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 80px);
+    padding: 8px;
+}
+
+.lastfm-list--content div {
+    padding: 2px;
+}
+
+.lastfm-list--content-first {
+    font-weight: bold;
+    flex-grow: 2;
+}
+
+.lastfm-list--content-second {
+    font-size: 14px;
+}
+
+.scrobbels-bar {
+    width: 100%;
+    height: 16px;
+}
+
+.scrobbels-bar--filled {
+    height: 16px;
+    background-color: #0074d966;
+    display: block;
+    font-size: 12px;
+    line-height: 16px;
+    padding-left: 6px;
+    white-space: nowrap;
+}

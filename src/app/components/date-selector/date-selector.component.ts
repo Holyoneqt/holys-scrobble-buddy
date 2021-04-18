@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { MatExpansionPanel } from '@angular/material';
 import dayjs from 'dayjs';
 import { BehaviorSubject } from 'rxjs';
-import { LastfmService } from 'src/app/services/lastfm.service';
+import { LastfmApiService } from 'src/app/lastfm/services/lastfm-api.service';
 
 @Component({
     selector: 'app-date-selector',
@@ -29,15 +29,35 @@ export class DateSelectorComponent implements OnInit {
     @Output()
     public dateToChange = new EventEmitter<Date>();
 
-    constructor(private lastfm: LastfmService) { }
+    constructor(private lastfmApi: LastfmApiService) { }
 
     public ngOnInit(): void {
-        this.lastfm.getUserInfo().subscribe(userInfo => this.userCreatedDate = new Date(userInfo.user.registered.unixtime * 1000));
+        this.lastfmApi.getUserInfo().subscribe(userInfo => this.userCreatedDate = new Date(userInfo.user.registered.unixtime * 1000));
 
         this.dateFrom$ = new BehaviorSubject(this.from);
-        this.dateFrom$.subscribe(date => this.dateFromChange.emit(date));
+        this.dateFrom$.subscribe(date => this.changeDateFrom(date));
         this.dateTo$ = new BehaviorSubject(this.to);
-        this.dateTo$.subscribe(date => this.dateToChange.emit(date));
+        this.dateTo$.subscribe(date => this.changeDateTo(date));
+    }
+    
+    public changeDateFrom(date: Date): void {
+        const tempTimePeriod = this.lastfmApi.timePeriod.value;
+        this.lastfmApi.timePeriod.next({
+            from: date,
+            to: tempTimePeriod.to,
+        });
+
+        this.dateFromChange.emit(date)
+    }
+
+    public changeDateTo(date: Date): void {
+        const tempTimePeriod = this.lastfmApi.timePeriod.value;
+        this.lastfmApi.timePeriod.next({
+            from: tempTimePeriod.from,
+            to: date,
+        });
+
+        this.dateToChange.emit(date)
     }
 
     public closeExansionPanel(): void {

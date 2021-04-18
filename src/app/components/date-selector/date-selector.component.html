@@ -1,8 +1,8 @@
-<mat-expansion-panel style="margin: 4px;" expanded="true">
+<mat-expansion-panel style="margin: 8px;" expanded="true">
     <mat-expansion-panel-header>
         <mat-panel-description style="align-items: center;">
-            <mat-icon style="margin-right: 4px;">date_range</mat-icon>
-            {{ (dateFrom$ | async) | date }} - {{ (dateTo$ | async) | date }}
+            <mat-icon style="margin-right: 48px;">date_range</mat-icon>
+            {{ (dateFrom$ | async) | date:'dd.MM.yyyy' }} - {{ (dateTo$ | async) | date:'dd.MM.yyyy' }}
         </mat-panel-description>
     </mat-expansion-panel-header>
 

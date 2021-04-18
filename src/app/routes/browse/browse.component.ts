@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { DateSelectorComponent } from 'src/app/components/date-selector/date-selector.component';
-import { ScrappedTrack } from 'src/app/models/lastfm.models';
-import { LastfmService } from 'src/app/services/lastfm.service';
+import { LastfmListEvent } from 'src/app/components/lastfm/lastfm-list/lastfm-list.component';
+import { LastfmApiGetCall, LastfmApiGetType, ScrappedItem } from 'src/app/lastfm/models/lastfm.models';
+import { LastfmApiService } from 'src/app/lastfm/services/lastfm-api.service';
 import { LocalStorageKey, LocalStorageService } from 'src/app/services/localstorage.service';
 
 @Component({
@@ -15,31 +16,30 @@ import { LocalStorageKey, LocalStorageService } from 'src/app/services/localstor
 export class BrowseComponent implements OnInit, AfterViewInit {
 
     public lastfmName: string;
+    public selectedBrowseType: LastfmApiGetType = 'artists';
 
     @ViewChild(DateSelectorComponent, { static: true })
     public dateSelector: DateSelectorComponent;
     public params: { from: Date, to: Date };
 
-    public dateFrom: Date;
-    public dateTo: Date;
-
     public loading$: BehaviorSubject<boolean>;
-    public tracks$: Observable<ScrappedTrack[]>;
+    public tracks$: Observable<ScrappedItem[]>;
 
-    private topScrobbels: number;
     private shouldLoadAfterInit = false;
+    private loadAfterInitParameters = {};
 
-    constructor(private localStorage: LocalStorageService, private lastfm: LastfmService, private route: ActivatedRoute) { }
+    constructor(private localStorage: LocalStorageService, public lastfmApi: LastfmApiService, private route: ActivatedRoute) { }
 
     public ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
-            this.params = {
+            this.lastfmApi.timePeriod.next({
                 from: params.from ? new Date(params.from) : new Date(),
                 to: params.to ? new Date(params.to) : new Date(),
-            };
-             
+            })
+
             if (params.from && params.to) {
                 this.shouldLoadAfterInit = true;
+                this.loadAfterInitParameters = { from: new Date(params.from), to: new Date(params.to) };
             }
         });
 
@@ -49,21 +49,38 @@ export class BrowseComponent implements OnInit, AfterViewInit {
 
     public ngAfterViewInit(): void {
         if (this.shouldLoadAfterInit) {
-            this.searchLastfm();
+            this.searchLastfm({ type: 'artists', parameters: this.loadAfterInitParameters });
         }
     }
 
-    public searchLastfm(): void {
-        this.loading$.next(true);
-        this.dateSelector.closeExansionPanel();
-        this.tracks$ = this.lastfm.getTopTracks(this.dateFrom, this.dateTo, this.lastfmName).pipe(
-            tap(response => this.topScrobbels = response[0].scrobbels),
-            finalize(() => this.loading$.next(false)),
-        );
+    public handleLastfmListEvent(event: LastfmListEvent): void {
+        switch (event.listItemClicked.type) {
+            case 'artist':
+                this.searchLastfm({ type: 'topTracksOfArtist', parameters: { artistName: event.listItemClicked.artist } });
+                break;
+            case 'album':
+                this.searchLastfm({ type: 'albumDetail', parameters: { artistName: event.listItemClicked.artist, albumName: event.listItemClicked.album } });
+                break;
+            case 'track':
+                // TODO: really do nothing
+                // this.searchLastfm({ type: 'topTracksOfArtist', parameters: { artistName: event.listItemClicked.artist } });
+                break;
+            default:
+                break;
+        }
     }
 
-    public calculateScrobbelsWidth(scrobbels: number): number {
-        return (scrobbels * 100) / this.topScrobbels;
+    public selectBrowseType(browseType: LastfmApiGetType): void {
+        this.selectedBrowseType = browseType;
+        this.searchLastfm({ type: this.selectedBrowseType });
+    }
+
+    public searchLastfm(lastfmApiGetCall: LastfmApiGetCall): void {
+        this.loading$.next(true);
+        this.dateSelector.closeExansionPanel();
+        this.tracks$ = this.lastfmApi.get(lastfmApiGetCall).pipe(
+            finalize(() => this.loading$.next(false)),
+        );
     }
 
 }

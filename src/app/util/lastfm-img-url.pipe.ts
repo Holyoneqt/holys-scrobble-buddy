@@ -7,6 +7,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'lastfmImage' })
 export class LastfmImagePipe implements PipeTransform {
     transform(url: string): string {
-        return url.replace('64s/', '');
+        return url.replace('64s/', '').replace('avatar70s/', '');
     }
 }

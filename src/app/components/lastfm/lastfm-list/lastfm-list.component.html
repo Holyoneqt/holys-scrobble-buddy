@@ -1,0 +1,28 @@
+<div class="lastfm-list">
+    <div class="lastfm-list--item" *ngFor="let item of _items" (click)="onClick(item)">
+        <div class="album-cover" (click)="$event.stopPropagation(); onClick(item)">
+            <img mat-list-icon [src]="item.img | lastfmImage" />
+        </div>
+        <div class="lastfm-list--content">
+            <ng-container *ngIf="item.track; else artistOnly">
+                <div class="lastfm-list--content-first">
+                    {{ item.track }}
+                </div>
+                <div class="lastfm-list--content-second">
+                    {{ item.artist }}
+                </div>
+            </ng-container>
+            <ng-template #artistOnly>
+                <div class="lastfm-list--content-first">
+                    {{ item.artist }}
+                </div>
+            </ng-template>
+            <div class="scrobbels-bar">
+                <span class="scrobbels-bar--filled"
+                    [style.width]="'calc(' + calculateScrobbelsWidth(item.scrobbels) + '% - 6px)'">
+                    {{ item.scrobbels }} scrobbels
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
